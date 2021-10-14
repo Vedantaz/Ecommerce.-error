@@ -1,0 +1,20 @@
+
+for creating a new project ...
+go to file and select new folder > in that folder> create new folder as you want >and select that folder ..
+done >>
+give commands like ...
+
+django-admin 
+django-admin startproject mac<<(this is required folder name in that creayed folder )
+
+python manage.py migrate  >> order give to make the migrants required..>> migrations
+
+models >>  product , your_PLibrary , purchaseWay , PassionGate , Trendy ,  
+
+
+
+
+
+
+
+
