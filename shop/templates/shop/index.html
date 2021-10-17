@@ -1,36 +1,173 @@
-{% extends 'shop/basic.html' %}
-{% load static %}
-{% block body %}
-{{products}}
-<div class="container">
-  <h1>Men Fashion</h1>
+<!doctype html>
+<html lang="en">
 
-  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-  {% for i in products  %}
-  {{i.image.url}}
-  {{i.image.path}}
-   {% if forloop.first %}
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <div class="carousel-item active">
-      <img src="{{i.image.url}}" class="d-block w-100" alt="...">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+  <title>victorworld.com</title>
+  <style>
+    .container{
+      max-width: 1640px;
+    }
+    .col-md-3 {
+      display: inline-block;
+      margin-left: -4px;
+    }
+    .col-xs-3.col-sm-3.col-md-3{
+      width: 301px;
+    height: 471px;
+    padding: 49px;
+    }
+    .carousel-item .active {
+      width: 1125px;
+    }
+
+    .carousel-control-prev {
+      display: flex;
+      flex-direction: column;
+      width: 10px;
+
+    }
+
+    .carousel-control-next {
+      display: flex;
+      flex-direction: column;
+      width: 10px;
+
+    }
+
+    .carousel-indicators .active {
+      background-color: blue;
+    }
+
+    .col-md-3 img {
+      width: 278px;
+    height: 330px;
+    }
+
+    body .carousel-indicator li {
+      background-color: blue;
+    }
+
+    body .carousel-indicators {
+      bottom: 0;
+    }
+
+    body .carousel-control-prev-icon,
+    body .carousel-control-next-icon {
+      background-color: blue;
+    }
+
+    body .no-padding {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  </style>
+</head>
+
+<body>
+  {% load static %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">My Awesome Cart</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Dropdown
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Trends</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
     </div>
+  </nav>
 
-   {% else %}
-    <div class="carousel-item">
-      <img src="{{i.image.url}}" class="d-block w-100" alt="...">
+  <div class="container">
+    {% for product , range , nSlides in allProds %}
+    <h1> Flash Sale on : {{product.0.category  }}</h1>
+    <div id="demo{{forloop.counter}}" class="carousel slide my-3" data-ride="carousel">
+      <ul class="carousel-indicators">
+        <li data-target="#demo" data-slide-to="0" class="active"></li>
+        {% for i in range %}
+        <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}"></li>
+        {% endfor %}
+      </ul>
+      
+      <!--Slideshow starts here -->
+      <div class="container carousel-inner no-padding" style="height: 789px;">
+        <div class="carousel-item active">
+          {% for item in product %}
+          <div class="col-xs-3 col-sm-3 col-md-3">
+            <div class="card" style="width: 18rem;">
+              <img src='{{item.image.url}}' class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{item.product_name}}</h5>
+                <p class="card-text">{{item.desc}}</p>
+                <a href="#" class="btn btn-primary">Add to chart</a>
+              </div>
+            </div>
+          </div>
+          {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+        </div><div class="carousel-item">
+          {% endif %}
+          {% endfor %}
+        </div>
+        
+        
+ </div>   
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </a>
+      <a class="carousel-control-next" href="#demo" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </a>
     </div>
-  {% endif %}
-  </div>
-
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+    {% endfor %}
 </div>
-{% endfor %}
-{% endblock body %}
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+      integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+      </body>
+
+      </html>
+      
+            <!-- <h2>Products-List</h2>
+              {% for all_data in products %}
+              <p>{{all_data.product_name}}</p>
+              <p>{{all_data.price}}</p>
+              {% endfor %} -->
